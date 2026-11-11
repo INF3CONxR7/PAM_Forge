@@ -65,21 +65,28 @@
 1. Téléchargez `PAMForge-win-x64.zip` dans la [dernière version](https://github.com/INF3CONxR7/PAM_Forge/releases/latest).
 
 2. Décompressez-le dans un dossier à vous (par exemple `Documents\PAM Forge`), puis lancez `PAM Forge.exe`.
-   Le runtime .NET est inclus : rien d’autre à installer pour l’application elle-même.
+   Le runtime .NET et les outils de conversion sont inclus : **rien d’autre à installer**.
+
+Le dossier obtenu contient `PAM Forge.exe`, le dossier `Update` (programme de mise à jour) et le dossier `Tools`
+(outils de conversion) : gardez-les ensemble.
 
 ## Outils de conversion
 
-PAM Forge pilote des programmes libres, à déposer une fois dans un dossier **`Tools`** à côté de `PAM Forge.exe`
-(ou à indiquer dans *Aide > Paramètres > Outils*) :
+PAM Forge pilote des programmes libres, **fournis** dans son dossier **`Tools`** et trouvés sans aucun réglage :
 
-| Outil | Rôle | Où le trouver |
+| Outil | Rôle | Dans le paquet |
 |---|---|---|
-| **FFmpeg** (`ffmpeg.exe`, `ffprobe.exe`) | Lecture, découpe, encodage H.264 (libx264) | Une version « full » ou « GPL » pour Windows |
-| **PAMFtool** (ravenDS, GPL-3.0) | Emballage PAMF de l’ICON1.PAM | `git clone https://github.com/ravenDS/PAMFtool` puis `dotnet build PAMFtool/PAMFtool.vbproj -c Release` |
-| **atracdenc** (LGPL-2.1) ou **at3tool** | SND0.AT3 (facultatif) | [dcherednik/atracdenc](https://github.com/dcherednik/atracdenc) |
-| **RPCS3** | Aperçu au survol (facultatif) | [rpcs3.net](https://rpcs3.net) |
+| **FFmpeg** (GPL-3.0, avec x264) | Lecture, découpe, encodage H.264 (libx264) | `Tools\ffmpeg` : `ffmpeg.exe`, `ffprobe.exe` et leurs bibliothèques |
+| **PAMFtool** (ravenDS, GPL-3.0) | Emballage PAMF de l’ICON1.PAM | `Tools\PAMFtool\PAMFtool.exe`, autonome (.NET 8 inclus) |
+| **atracdenc** (LGPL-2.1) | SND0.AT3 (musique, facultative) | `Tools\atracdenc\atracdenc.exe` |
+| **RPCS3** | Aperçu au survol (facultatif) | Non fourni : [rpcs3.net](https://rpcs3.net) |
 
-Les outils fuités du SDK de Sony (PS3 Stream Composer, at3tool redistribué) ne sont ni fournis ni nécessaires.
+Chaque outil garde sa propre licence, jointe dans son dossier ; `Tools\LICENCES.txt` donne les versions, les licences
+et les adresses de leur code source. Vous pouvez en utiliser une autre version : indiquez-la dans
+*Aide > Paramètres > Outils*, ou remplacez ses fichiers dans `Tools`.
+
+at3tool (Sony) n’est pas fourni : il n’est pas redistribuable, et atracdenc le remplace. Les outils fuités du SDK de
+Sony (PS3 Stream Composer, at3tool redistribué) ne sont ni fournis ni nécessaires.
 
 ## Utilisation
 
@@ -121,7 +128,8 @@ Les outils fuités du SDK de Sony (PS3 Stream Composer, at3tool redistribué) ne
 ## Mises à jour et Discord
 
 PAM Forge vérifie au démarrage si une nouvelle version est publiée sur GitHub ; chaque version est **signée** et
-vérifiée avant d’être installée par `PAM Forge Update.exe`. L’activité Discord montre ce que fait l’application
+vérifiée avant d’être installée par `Update\PAM Forge Update.exe` (lancé seul, il cherche et installe lui-même la
+dernière version). L’activité Discord montre ce que fait l’application
 (découpe, conversion, vérification, envoi), jamais le nom de vos fichiers ; le bouton à ondes de l’en-tête l’active ou
 la masque.
 
@@ -129,9 +137,9 @@ la masque.
 
 | Symptôme | Solution |
 |---|---|
-| « FFmpeg introuvable » | Déposez `ffmpeg.exe` et `ffprobe.exe` dans `Tools`, ou indiquez-les dans *Paramètres > Outils*. |
-| « Cette version de FFmpeg n’a pas l’encodeur libx264 » | Prenez une version « full » ou « GPL » de FFmpeg. |
-| « PAMFtool introuvable » | Compilez PAMFtool (`dotnet build`) et indiquez `PAMFtool.exe` ou `PAMFtool.dll`. |
+| « FFmpeg introuvable », « PAMFtool introuvable » | Le dossier `Tools` doit rester à côté de `PAM Forge.exe` : décompressez de nouveau le paquet, ou indiquez les outils dans *Paramètres > Outils*. |
+| « Cette version de FFmpeg n’a pas l’encodeur libx264 » | Vous avez indiqué un autre FFmpeg : videz le champ dans *Paramètres > Outils* pour reprendre celui fourni, ou prenez une version « full » ou « GPL ». |
+| « Le programme de mise à jour … est introuvable » | Le dossier `Update` doit rester à côté de `PAM Forge.exe` : décompressez de nouveau le paquet. |
 | L’icône reste fixe sur la console | Nom exact `ICON1.PAM`, à côté du PARAM.SFO, budget respecté ; un `ICON1_02.PAM` passe devant sur une console en français ; l’option « No SND0.AT3 » de webMAN doit être décochée. |
 | Musique accélérée | Le son doit être à 48 kHz : PAM Forge le prépare ainsi (astuce de pop-fe pour atracdenc). |
 | La console ne répond pas | HEN activé, webMAN MOD actif, PC et PS3 sur le même réseau, bonne adresse IP. |
@@ -167,8 +175,14 @@ at3tool) · ICON0.PNG from the displayed frame, optional PIC1.PNG · `.pam` read
 2,048-byte sectors, Main@L2.1 320 × 176 CAVLC, EP map, exact name, budget) · sending through **webMAN MOD’s FTP** with
 a **backup of the original files**, or a **test in RPCS3** · signed updates, Discord activity, three themes.
 
-**Tools**: put `ffmpeg.exe`, `ffprobe.exe`, PAMFtool (build it with `dotnet build`) and optionally `atracdenc.exe` in a
-**`Tools`** folder next to `PAM Forge.exe`, or choose them in *Settings > Tools*.
+**Install**: download `PAMForge-win-x64.zip` from the latest release, unzip it and run `PAM Forge.exe`. The .NET
+runtime and the conversion tools are included: **nothing else to install**. Keep `PAM Forge.exe`, the `Update` folder
+(updater) and the `Tools` folder together.
+
+**Tools**: FFmpeg (GPL-3.0, with x264), PAMFtool (ravenDS, GPL-3.0, self-contained) and atracdenc (LGPL-2.1) are
+bundled in the **`Tools`** folder, each with its licence; `Tools\LICENCES.txt` lists versions, licences and source
+code. To use another version, choose it in *Settings > Tools* or replace its files. at3tool (Sony, not redistributable)
+and RPCS3 (optional, [rpcs3.net](https://rpcs3.net)) are not included.
 
 **Uninstall**: delete the app folder. Settings are in `HKEY_CURRENT_USER\Software\PAMForge`, the `.pam` association in
 `HKEY_CURRENT_USER\Software\Classes\PAMForge.Icon`, the logs in `%LocalAppData%\PAM Forge`.
