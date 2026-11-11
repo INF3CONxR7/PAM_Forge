@@ -36,25 +36,34 @@
 - **Lire, découper et convertir** : aperçu de la source avec le **cadre de sortie 20:11** (320 × 176 n’est pas du
   16:9 : PAM Forge rogne 12 px en haut et en bas d’une vidéo 1080p), aperçu de l’icône telle qu’elle sortira et vue
   côte à côte ; lecture à l’image près, en boucle, avec le son.
+
 - **Découpe** : entrée et sortie au code temporel ou à la souris, poignées sur la frise, images clés prévues (une
   toutes les 12 images) et **raccord de la boucle** en fondu enchaîné de 0,5 s.
+
 - **La recette éprouvée** : H.264 profil Main, niveau 2.1, CAVLC, 29,97 i/s, une image clé toutes les 12 images,
   délimiteurs d’image, encodage en 2 passes, par **FFmpeg (x264)** ; emballage **PAMF** avec sa table des points
   d’entrée par **PAMFtool**.
+
 - **Budget du menu** : ICON1.PAM + SND0.AT3 ≤ 2 400 000 octets, estimé en direct ; le préréglage recommandé calcule
   le débit (formule du guide, 10 % de marge).
+
 - **Musique SND0.AT3** : coupe (55 s au plus), fondu final, ATRAC3 132 kbit/s stéréo à 48 kHz, par atracdenc (libre,
   avec l’astuce 48 kHz de pop-fe) ou at3tool ; écoute et forme d’onde.
+
 - **Images fixes** : ICON0.PNG tiré de l’image affichée (ou d’un fichier), PIC1.PNG facultatif.
+
 - **Lire le .pam et le vérifier** : en-tête PAMF0040/0041, taille en secteurs de 2 048 octets, vidéo Main@L2.1 en
   320 × 176 CAVLC, table EP map, nom exact et budget ; lecture en boucle avec la musique de SND0.AT3.
+
 - **Envoyer à la PS3** : par le FTP de webMAN MOD (HEN ou CFW), dans le dossier du jeu à côté de son PARAM.SFO,
   avec **sauvegarde préalable des fichiers d’origine** ; ou **essai dans RPCS3**.
+
 - Interface en français ou en anglais, trois thèmes, mises à jour signées, activité Discord.
 
 ## Installation
 
 1. Téléchargez `PAMForge-win-x64.zip` dans la [dernière version](https://github.com/INF3CONxR7/PAM_Forge/releases/latest).
+
 2. Décompressez-le dans un dossier à vous (par exemple `Documents\PAM Forge`), puis lancez `PAM Forge.exe`.
    Le runtime .NET est inclus : rien d’autre à installer pour l’application elle-même.
 
@@ -76,12 +85,17 @@ Les outils fuités du SDK de Sony (PS3 Stream Composer, at3tool redistribué) ne
 
 1. **Ouvrir** une vidéo (MP4, MOV, MKV, GIF…) : *Fichier > Ouvrir une vidéo ou un .pam* (`Ctrl+O`), clic dans le
    lecteur vide, ou glisser-déposer.
+
 2. **Découper** 5 à 10 secondes qui bouclent bien : `I` et `O` posent l’entrée et la sortie à l’image affichée.
+
 3. **Régler** : préréglage *Icône animée PS3 (recommandé)*, passage au 20:11, musique (onglet *Musique*), ICON0.PNG
    (*Tirer de l’image affichée*). Le **budget** doit rester vert.
+
 4. **Projet** : cliquez sur la pastille *Projet* pour donner le nom et le **Title ID** du jeu (9 caractères).
+
 5. **Convertir en ICON1.PAM** : les fichiers arrivent dans `Documents\PAM Forge\<projet>`, puis la page du fichier
    montre l’animation, les **6 vérifications** et les fichiers produits.
+
 6. **Envoyer à la PS3** : adresse IP (SELECT + START avec webMAN MOD), dossier du jeu (`/dev_hdd0/game/<TITLE_ID>/`),
    fichiers à envoyer, puis *Envoyer à la PS3*. Redémarrez la console et mettez le jeu en surbrillance.
 
@@ -130,8 +144,10 @@ Supprimez le dossier de l’application. Les réglages sont dans `HKEY_CURRENT_U
 ## Crédits
 
 - Format PAMF : d’après le module `cellPamf` de [RPCS3](https://github.com/RPCS3/rpcs3).
+
 - Emballage : [PAMFtool](https://github.com/ravenDS/PAMFtool) de ravenDS ; encodage : [FFmpeg](https://ffmpeg.org) et x264 ;
   ATRAC3 : [atracdenc](https://github.com/dcherednik/atracdenc) ; astuce 48 kHz : [pop-fe](https://github.com/sahlberg/pop-fe).
+
 - Projet non officiel, sans lien avec Sony Interactive Entertainment. PlayStation et PS3 sont des marques de leurs
   propriétaires.
 
